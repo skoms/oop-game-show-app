@@ -31,6 +31,18 @@ class Phrase {
      * @returns { boolean } - Whether or not it includes the letter
      */
     checkLetter( letter ) {
-        return this.phrase.includes(letter) && letter !== ' ';
+        return this.phrase.includes(letter);
+    }
+
+    /**
+     * Reveals the letter(s) on the board that matches the player's selection
+     */
+    showMatchedLetter( selectedLetter ) {
+        const letters = document.querySelectorAll('.letter');
+        const matchedLetters = letters.filter(letter => letter.textContent === selectedLetter );
+        for (const letter of matchedLetters) {
+            letter.classList.remove('hide');
+            letter.classList.add('show');
+        }
     }
 }
