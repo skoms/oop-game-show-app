@@ -82,6 +82,17 @@ class Game {
      * Displays win/loss message and returning them to the start screen overlay
      */
     gameOver() {
+        const gameOverMessage = document.getElementById('game-over-message').innerHTML;
+        const overlay = document.getElementById('overlay');
+        overlay.style.display = 'block';
+
         
+        if( this.checkForWin()) {
+            gameOverMessage = 'Congratulations, you won!';
+            overlay.className = 'win';
+        } else {
+            gameOverMessage = 'Sorry, you lost...';
+            overlay.className = 'lose';
+        }
     }
 }
