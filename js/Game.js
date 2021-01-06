@@ -16,7 +16,7 @@ class Game {
      */
     startGame() {
         // Resetting previous game if any
-        [...document.querySelectorAll('.tries')].forEach( life => life.innerHTML = `<img src="images/liveHeart.png" alt="Heart Icon" height="35" width="30">`); // Resets hearts
+        [...document.querySelectorAll('.tries')].forEach( life => life.innerHTML = `<img src="images/liveHeart.png" alt="Heart Icon" height="45" width="45">`); // Resets hearts
         document.querySelector('#phrase ul').innerHTML = ''; // Resets onscreen phrase
         [...document.querySelectorAll('.key')].forEach( key => {
             if( key.classList.contains('chosen') ) {
@@ -83,7 +83,7 @@ class Game {
         for (let i = 0; i < this.missed; i++) {
             if( this.missed !== 0 ) {
                 const life = lives[i];
-                life.innerHTML = `<img src="images/lostHeart.png" alt="Lost Heart Icon" height="35" width="30">`;
+                life.innerHTML = `<img src="images/lostHeart.png" alt="Lost Heart Icon" height="45" width="45">`;
             }
         }
         // Switch Case to change the backround color according to the remaining lives
