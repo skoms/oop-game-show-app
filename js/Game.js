@@ -131,10 +131,10 @@ class Game {
 
         
         if( this.checkForWin()) {
-            gameOverMessage.textContent = 'Congratulations, you won!';
+            gameOverMessage.textContent = `Congratulations, you won! The phrase was '${this.activePhrase.phrase}'`;
             overlay.className = 'win';
         } else {
-            gameOverMessage.textContent = 'Sorry, you lost...';
+            gameOverMessage.textContent = `Sorry, you lost... The phrase was '${this.activePhrase.phrase}'`;
             overlay.className = 'lose';
         }
     }
