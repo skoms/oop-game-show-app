@@ -34,9 +34,13 @@ class Phrase {
     /**
      * Reveals the letter(s) on the board that matches the player's selection
      */
+    /* 
+    Looked up about nodeLists and got inspired from here: 
+    https://stackoverflow.com/questions/32765157/filter-or-map-nodelists-in-es6 
+    */
     showMatchedLetter( selectedLetter ) {
         const letters = document.querySelectorAll('.letter');
-        const matchedLetters = letters.filter(letter => letter.textContent === selectedLetter );
+        const matchedLetters = [...letters].filter( letter => letter.textContent === selectedLetter );
         for (const letter of matchedLetters) {
             letter.classList.remove('hide');
             letter.classList.add('show');

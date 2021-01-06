@@ -15,6 +15,18 @@ class Game {
      * Hides the start screen overlay, gets a random new phrase to update the activePhrase property and displays it
      */
     startGame() {
+        // Resetting previous game if any
+        [...document.querySelectorAll('.tries')].forEach( life => life.innerHTML = `<img src="images/liveHeart.png" alt="Heart Icon" height="35" width="30">`); // Resets hearts
+        document.querySelector('#phrase ul').innerHTML = ''; // Resets onscreen phrase
+        [...document.querySelectorAll('.key')].forEach( key => {
+            if( key.classList.contains('chosen') ) {
+                key.classList.remove('chosen');
+            } else if( key.classList.contains('wrong') ) {
+                key.classList.remove('wrong');
+            }
+        }); // Resets all the classes for the onscreen keyboard
+        this.missed = 0; // Resets lives
+        // Initializing part
         document.getElementById('overlay').style.display = 'none';
         this.activePhrase = this.getRandomPhrase();
         this.activePhrase.addPhraseToDisplay();
@@ -33,8 +45,7 @@ class Game {
      * @param { event } e - the event to handle
      */
     handleInteraction( e ) {
-        if( e.target.tagName === 'BUTTON' ) {
-            const button = e.target;
+        const handle = ( button ) => {
             const letter = button.textContent;
             if( !this.activePhrase.checkLetter( letter ) ) {
                 button.classList.add('wrong');
@@ -47,6 +58,16 @@ class Game {
                 }
             }
         }
+        if( e.target.tagName === 'BUTTON' && !e.target.classList.contains('wrong') && !e.target.classList.contains('chosen') ) {
+            const button = e.target;
+            handle( button);
+        }
+        if( e.type === 'keydown' ) {
+            const button = document.querySelector('.key').find( key => key.textContent === e.key );
+            if( !button.classList.contains('wrong') && !button.classList.contains('chosen') ) {
+                handle( button );
+            }
+        }
     }
 
     /**
@@ -56,8 +77,10 @@ class Game {
         const lives = document.querySelectorAll('.tries');
         this.missed++;
         for (let i = 0; i < this.missed; i++) {
-            const life = lives[i];
-            life.innerHTML = `<img src="images/lostHeart.png" alt="Lost Heart Icon" height="35" width="30">`;
+            if( this.missed !== 0 ) {
+                const life = lives[i];
+                life.innerHTML = `<img src="images/lostHeart.png" alt="Lost Heart Icon" height="35" width="30">`;
+            }
         }
         if( this.missed === 5 ) {
             this.gameOver();
@@ -68,10 +91,13 @@ class Game {
      * Checks to see if all letters are displayed, if so return true, letting them know they won
      * @returns { boolean } - true: win, false: loss
      */
+    /* 
+    Looked up about nodeLists and got inspired from here: 
+    https://stackoverflow.com/questions/32765157/filter-or-map-nodelists-in-es6 
+    */
     checkForWin() {
-        const hiddenLetters = document
-            .querySelectorAll('.letter')
-            .filter( letter => letter.classList.contains('hide'));
+        const letters = document.querySelectorAll('.letter');
+        const hiddenLetters = [...letters].filter( letter => letter.classList.contains('hide'));
         return hiddenLetters.length === 0;
     }
 
@@ -79,16 +105,16 @@ class Game {
      * Displays win/loss message and returning them to the start screen overlay
      */
     gameOver() {
-        const gameOverMessage = document.getElementById('game-over-message').innerHTML;
+        const gameOverMessage = document.getElementById('game-over-message');
         const overlay = document.getElementById('overlay');
         overlay.style.display = 'block';
 
         
         if( this.checkForWin()) {
-            gameOverMessage = 'Congratulations, you won!';
+            gameOverMessage.textContent = 'Congratulations, you won!';
             overlay.className = 'win';
         } else {
-            gameOverMessage = 'Sorry, you lost...';
+            gameOverMessage.textContent = 'Sorry, you lost...';
             overlay.className = 'lose';
         }
     }
