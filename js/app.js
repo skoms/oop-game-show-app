@@ -1,3 +1,8 @@
-/* Treehouse FSJS Techdegree
- * Project 4 - OOP Game App
- * app.js */
+const resetButton = document.getElementById('btn__reset');
+const onScreenKeysDiv = document.getElementById('qwerty');
+
+const game = new Game();
+
+resetButton.addEventListener('click', e => game.startGame() );
+
+onScreenKeysDiv.addEventListener('click', e => game.handleInteraction(e) );

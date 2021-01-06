@@ -1,6 +1,3 @@
-/* Treehouse FSJS Techdegree
- * Project 4 - OOP Game App
- * Game.js */
 class Game {
     constructor() {
         this.missed = 0;
@@ -36,7 +33,7 @@ class Game {
      * @param { event } e - the event to handle
      */
     handleInteraction( e ) {
-        if( e.target.type === 'button' ) {
+        if( e.target.tagName === 'BUTTON' ) {
             const button = e.target;
             const letter = button.textContent;
             if( !this.activePhrase.checkLetter( letter ) ) {
