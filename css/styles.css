@@ -24,6 +24,7 @@
 }
 
 body {
+  background-color: #6FC758;
   justify-content: space-evenly;
   flex-direction: column;
   display: flex;
@@ -87,6 +88,7 @@ button {
 
 .header {
   color: #3a3f58;
+  text-shadow: 3px 3px 5px #3a3f58;
 }
 
 
@@ -99,7 +101,7 @@ button {
   padding: 20px 1px 0 1px;
   margin-right: 2px;
   color: transparent;
-  background: var(--color-neutral-light);
+  background: rgba(194, 194, 194, 0.75);
   border-radius: 5px;
 }
 
@@ -111,7 +113,7 @@ button {
 
 .show {
   color: #fff;
-  background-color: #4ac0d5;
+  background-color: rgba(0, 204, 255, 0.5);
   font-size: 20px;
   height: 65px;
   width: 65px;
@@ -128,6 +130,12 @@ button {
 .keyrow {
   display: flex;
   justify-content: center;
+}
+
+.key:hover {
+  transform: scale(1.2); 
+  font-weight: 700;
+  text-decoration: underline;
 }
 
 .chosen {

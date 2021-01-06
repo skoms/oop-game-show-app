@@ -25,7 +25,9 @@ class Game {
                 key.classList.remove('wrong');
             }
         }); // Resets all the classes for the onscreen keyboard
+        document.body.style.backgroundColor = '#6FC758'; // resets the background color
         this.missed = 0; // Resets lives
+
         // Initializing part
         document.getElementById('overlay').style.display = 'none';
         this.activePhrase = this.getRandomPhrase();
@@ -63,8 +65,10 @@ class Game {
             handle( button);
         }
         if( e.type === 'keydown' ) {
-            const button = [...document.querySelectorAll('.key')].find( key => key.textContent === e.key );
-            if( !button.classList.contains('wrong') && !button.classList.contains('chosen') ) {
+            const keys = [...document.querySelectorAll('.key')];
+            const button = keys.find( key => key.textContent === e.key );
+            /* Checks whether the key pressed is valid before checking classes, as that would return an error */
+            if( keys.some( key => key.textContent === e.key ) && !button.classList.contains('wrong') && !button.classList.contains('chosen') ) {
                 handle( button );
             }
         }
@@ -82,6 +86,22 @@ class Game {
                 life.innerHTML = `<img src="images/lostHeart.png" alt="Lost Heart Icon" height="35" width="30">`;
             }
         }
+        // Switch Case to change the backround color according to the remaining lives
+        switch( this.missed ){
+            case 1:
+                document.body.style.backgroundColor = '#A7C758';
+                break;
+            case 2:
+                document.body.style.backgroundColor = '#C7B058';
+                break;
+            case 3:
+                document.body.style.backgroundColor = '#C77958';
+                break;
+            default:
+                document.body.style.backgroundColor = '#C7586F';
+                break;
+        }
+
         if( this.missed === 5 ) {
             this.gameOver();
         }
