@@ -63,7 +63,7 @@ class Game {
             handle( button);
         }
         if( e.type === 'keydown' ) {
-            const button = document.querySelector('.key').find( key => key.textContent === e.key );
+            const button = [...document.querySelectorAll('.key')].find( key => key.textContent === e.key );
             if( !button.classList.contains('wrong') && !button.classList.contains('chosen') ) {
                 handle( button );
             }
