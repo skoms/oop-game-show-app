@@ -15,19 +15,6 @@ class Game {
      * Hides the start screen overlay, gets a random new phrase to update the activePhrase property and displays it
      */
     startGame() {
-        // Resetting previous game if any
-        [...document.querySelectorAll('.tries')].forEach( life => life.innerHTML = `<img src="images/liveHeart.png" alt="Heart Icon" height="45" width="45">`); // Resets hearts
-        document.querySelector('#phrase ul').innerHTML = ''; // Resets onscreen phrase
-        [...document.querySelectorAll('.key')].forEach( key => {
-            if( key.classList.contains('chosen') ) {
-                key.classList.remove('chosen');
-            } else if( key.classList.contains('wrong') ) {
-                key.classList.remove('wrong');
-            }
-        }); // Resets all the classes for the onscreen keyboard
-        document.body.style.backgroundColor = '#6FC758'; // resets the background color
-        this.missed = 0; // Resets lives
-
         // Initializing part
         document.getElementById('overlay').style.display = 'none';
         this.activePhrase = this.getRandomPhrase();
@@ -129,7 +116,6 @@ class Game {
         const overlay = document.getElementById('overlay');
         overlay.style.display = 'block';
 
-        
         if( this.checkForWin()) {
             gameOverMessage.textContent = `Congratulations, you won! The phrase was '${this.activePhrase.phrase}'`;
             overlay.className = 'win';
@@ -137,5 +123,18 @@ class Game {
             gameOverMessage.textContent = `Sorry, you lost... The phrase was '${this.activePhrase.phrase}'`;
             overlay.className = 'lose';
         }
+
+        // Resetting previous game
+        [...document.querySelectorAll('.tries')].forEach( life => life.innerHTML = `<img src="images/liveHeart.png" alt="Heart Icon" height="45" width="45">`); // Resets hearts
+        document.querySelector('#phrase ul').innerHTML = ''; // Resets onscreen phrase
+        [...document.querySelectorAll('.key')].forEach( key => {
+            if( key.classList.contains('chosen') ) {
+                key.classList.remove('chosen');
+            } else if( key.classList.contains('wrong') ) {
+                key.classList.remove('wrong');
+            }
+        }); // Resets all the classes for the onscreen keyboard
+        document.body.style.backgroundColor = '#6FC758'; // resets the background color
+        this.missed = 0; // Resets lives
     }
 }
