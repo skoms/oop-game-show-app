@@ -38,24 +38,26 @@ class Game {
             const letter = button.textContent;
             if( !this.activePhrase.checkLetter( letter ) ) {
                 button.classList.add('wrong');
+                button.disabled = true;
                 this.removeLife();
             } else {
                 button.classList.add('chosen');
+                button.disabled = true;
                 this.activePhrase.showMatchedLetter( letter );
                 if( this.checkForWin() ) {
                     this.gameOver();
                 }
             }
         }
-        if( e.target.tagName === 'BUTTON' && !e.target.classList.contains('wrong') && !e.target.classList.contains('chosen') ) {
+        if( e.target.tagName === 'BUTTON' && !e.target.disabled ) {
             const button = e.target;
             handle( button);
         }
         if( e.type === 'keydown' ) {
             const keys = [...document.querySelectorAll('.key')];
             const button = keys.find( key => key.textContent === e.key );
-            /* Checks whether the key pressed is valid before checking classes, as that would return an error */
-            if( keys.some( key => key.textContent === e.key ) && !button.classList.contains('wrong') && !button.classList.contains('chosen') ) {
+            /* Checks whether the key pressed is valid before checking if disabled, as that would return an error */
+            if( keys.some( key => key.textContent === e.key ) && !button.disabled ) {
                 handle( button );
             }
         }
@@ -130,8 +132,10 @@ class Game {
         [...document.querySelectorAll('.key')].forEach( key => {
             if( key.classList.contains('chosen') ) {
                 key.classList.remove('chosen');
+                key.disabled = false;
             } else if( key.classList.contains('wrong') ) {
                 key.classList.remove('wrong');
+                key.disabled = false;
             }
         }); // Resets all the classes for the onscreen keyboard
         document.body.style.backgroundColor = '#6FC758'; // resets the background color
